@@ -1,10 +1,8 @@
+import streamlit as st
 import openai
 
-chave_api="xxxxxx"
-
-#openai.api_key= chave_api
-
-# Criar um cliente OpenAI
+# Configuração da chave da API
+chave_api = "7Y-hLrMK8R1FZlkwkRApySBKZ3crWaLT3BlbkFJosVerPDEOafdc-DRtu5MbgRh0b3mb_lqSr8lOa8fOZEvrRUtN_pUZLOUUs3U9dl3SXc0FbkhYA"
 client = openai.OpenAI(api_key=chave_api)
 
 def enviar_mensagem(mensagem):
@@ -14,4 +12,16 @@ def enviar_mensagem(mensagem):
     )
     return resposta.choices[0].message.content
 
-print(enviar_mensagem("como especialista me fale sobre comando pyhton para concatenar dois dataframes pode me ajudar"))
+# Interface Web com Streamlit
+st.title("Chat com OpenAI")
+st.write("Digite sua pergunta abaixo e receba uma resposta do ChatGPT.")
+
+mensagem = st.text_area("Digite sua mensagem:")
+
+if st.button("Enviar"):
+    if mensagem.strip():
+        resposta = enviar_mensagem(mensagem)
+        st.subheader("Resposta:")
+        st.write(resposta)
+    else:
+        st.warning("Por favor, digite uma mensagem antes de enviar.")
